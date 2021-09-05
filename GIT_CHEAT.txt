@@ -1,0 +1,104 @@
+git init - initialize a new repo in a directory
+git config --global user.name "name"
+git config --global user.email "email"
+(--local option as well)
+git status - see the state of files in working tree, staging area vs latest commit in git history
+git add - move file(s) to the staging area
+git log - view the git history / git commit graph
+git diff - diff of working tree and staging area
+git diff --staged - diff of staging area and latest commit
+git rm - remove a file from the working tree and the staging area
+git checkout -- filename - retrieve a file from the staging area into the working tree
+git reset HEAD filename - retrieve a file from the latest commit into the staging area
+git checkout (commit hash) filename - retrieve a file from a previous commit
+
+New Repo
+---------------------------------------------------------------------------------------
+go to git hub and create a new repo and copy the url
+
+git remote add origin  <REMOTE_URL> 
+# Sets the new remote
+$ git remote -v
+# Verifies the new remote URL
+Push the changes in your local repository to GitHub.
+$ git push origin main
+# Pushes the changes in your local repository up to the remote repository you specified as t
+
+
+---------------------------------------------------------------------------------------
+Commit a single file...
+git commit -m "my message" -- GITTutorialCommands.txt
+---------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
+Rolling back working directory file change from staging(added)...
+This is a rollback from file changes that have not yet been commited but have been tracked(added)
+git checkout -- s1.txt
+This will take the last s1.txt changes from staging and overwrite s1.txt in working directory
+---------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
+Rolling back changes from commited edits all the way to the working directory file
+git reset head s1.txt  ----this will overwrite the changes in the staged file with the committed file edits.
+git checkout s1.txt    ----this will overwrite the changes in the working directory file with the staged file edits. 
+---------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
+git diff View difference between Stage and Working Directory -- This will show diff between changes before you do a git add and the already staged file changes.
+git diff --staged View difference between HEAD and Stage -- This will show diff between changes after you add(stage edits) and the last commit on the file.
+git diff HEAD View difference between HEAD and Working Directory
+git diff master origin/master compare local checked in with remote repo
+-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+git branch 		This will show your local branches
+git checkout -b dev     This will create a dev branch and check it out
+git branch -D dev       This will delete the dev branch - you cannot be on dev when executing this command
+git mv file1.txt file3.txt This is a git rename file
+-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+Using Diff Tool Meld
+git difftool origin/master using meld to compare diffs from local committed to origin committed
+git difftool using meld to View difference between Stage and Working Directory 
+y
+ using meld to View difference between HEAD and Stage -- This will show diff between changes after you add(stage edits) and the last commit on the file.
+git difftool master origin/master compare local checked in with remote repo
+-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+Using Merge Tool Meld when in a git merge state
+Last nite phil pushed new changes up to origin master
+This morning I made changes locally to the same file locally and committed it without doing a pull first.
+Next I try to commit push the changes to master but I cannot because...
+(Updates were rejected because the tip of your current branch is behind its remote counterpart. Integrate the remote changes)
+
+so now I attempt a pull and phil changes and my changes are in conflict 
+(Pulling is not possible because you have unmerged files. Fix them up in the work tree fatal: Exiting because of an unresolved conflict.) 
+
+(git is now in a merge state) so we need to merge the code changes........
+After fixing the conflict I need to commit my changes and then do a pull
+
+git mergetool using meld to merge confilicts when doing a pull between local and origin repositories
+
+
+
+---------------Video Demo https://www.youtube.com/watch?v=3Qynj8WUwgs --------------------
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+---------------global config for vs code as diff and merge tool---------------------------------------------
+[user]
+	name = Eric Nordin
+	email = ericnordin2020@gmail.com
+[diff]
+	tool = vscode
+[difftool "vscode"]
+	cmd = code --wait --diff $LOCAL $REMOTE
+[merge]
+	tool = vscode
+[mergetool "vscode"]
+	cmd = code --wait $MERGED
+[mergetool "vscode"]
+  cmd = code --wait $MERGED
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[core]
+	editor = code --wait
+	autocrlf = true
